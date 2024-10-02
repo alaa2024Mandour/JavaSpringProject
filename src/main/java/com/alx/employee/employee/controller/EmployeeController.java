@@ -1,16 +1,12 @@
 package com.alx.employee.employee.controller;
-
 import com.alx.employee.employee.repo.Employee;
-import com.alx.employee.employee.repo.Project;
-import com.alx.employee.employee.repo.Task;
-import com.alx.employee.employee.service.EmployeeService;
 import com.alx.employee.employee.service.EmployeeServiceInt;
-import com.alx.employee.employee.service.ProjectService;
-import com.alx.employee.employee.service.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
    private final EmployeeServiceInt employeeServiceInt;
 
@@ -20,7 +16,30 @@ public class EmployeeController {
 
     @GetMapping("/getEmployee")
     public Employee getEmployeeById() {
-        return  employeeServiceInt.findEmployeeById("A'laa Yasser");
+        return  employeeServiceInt.findEmployeeById(1L);
     }
+
+    @GetMapping
+    public List<Employee> findAllEmployee (){
+       return employeeServiceInt.findAllEmployees();
+    }
+
+    @PostMapping
+    public Employee saveEmployee(Employee employee) {
+       return  employeeServiceInt.saveEmployee(employee);
+    }
+
+    @PutMapping
+    public Employee updateEmployee(Employee employee) {
+       return employeeServiceInt.updateEmployee(employee);
+    }
+
+    @PatchMapping
+    public  Employee patchEmployee(Employee employee) {
+       return employeeServiceInt.updateEmployee(employee);
+    }
+
+    @DeleteMapping
+    public void deleteEmployeeById(Long id) {}
 
 }

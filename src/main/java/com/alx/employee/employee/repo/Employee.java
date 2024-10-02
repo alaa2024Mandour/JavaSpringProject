@@ -7,16 +7,16 @@ public class Employee {
     String name;
     String address;
     String salary;
-    String date;
+    String hiring_date;
 
     public Employee() {}
 
-    public Employee(Long id, String name, String address, String salary, String date) {
+    public Employee(Long id, String name, String address, String salary, String hiring_date) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.salary = salary;
-        this.date = date;
+        this.hiring_date = hiring_date;
     }
 
     public Long getId() {
@@ -52,12 +52,12 @@ public class Employee {
     }
 
     public String getDate() {
-        return date;
+        return hiring_date;
     }
 
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String hiring_date) {
+        this.hiring_date = hiring_date;
     }
 
 
