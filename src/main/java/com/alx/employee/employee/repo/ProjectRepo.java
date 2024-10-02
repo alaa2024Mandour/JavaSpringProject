@@ -3,7 +3,7 @@ package com.alx.employee.employee.repo;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProjectRepo {
+public class ProjectRepo implements ProjectRepoInt {
     public Project getProjectById(Long id) {
         return  new Project(
                 id,

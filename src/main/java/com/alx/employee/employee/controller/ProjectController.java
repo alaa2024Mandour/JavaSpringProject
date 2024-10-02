@@ -2,17 +2,23 @@ package com.alx.employee.employee.controller;
 
 import com.alx.employee.employee.repo.Project;
 import com.alx.employee.employee.service.ProjectService;
+import com.alx.employee.employee.service.ProjectServiceInt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ProjectController {
+public class ProjectController{
 
-    ProjectService projectService = new ProjectService();
+    private final ProjectServiceInt projectServiceInt;
+
+    ProjectController ( ProjectServiceInt projectServiceInt) {
+        this.projectServiceInt = projectServiceInt;
+    }
 
     @GetMapping("/getProject")
     public Project getProjectById() {
-        return  projectService.getEmployeeById(11L);
+        return  projectServiceInt.getEmployeeById(11L);
     }
+
 }
