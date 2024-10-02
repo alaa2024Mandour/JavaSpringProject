@@ -49,14 +49,16 @@ public class EmployeeRepo implements EmployeeRepoInt
 
     @Override
     public Employee saveEmployee(Employee employee) {
-        return null;
+        return employee;
     }
 
     @Override
-    public void deleteEmployee(Long id) { }
+    public void deleteEmployee(Long id) {
+        System.out.println("Delete Employee id: " + id);
+    }
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        return null;
+        return employee;
     }
 }

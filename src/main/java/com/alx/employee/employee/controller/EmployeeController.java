@@ -25,21 +25,37 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee saveEmployee(Employee employee) {
-       return  employeeServiceInt.saveEmployee(employee);
+    public Employee saveEmployee(@RequestBody Employee employee) {
+       return employeeServiceInt.saveEmployee(employee);
     }
 
     @PutMapping
-    public Employee updateEmployee(Employee employee) {
+    public Employee updateEmployee(@RequestBody Employee employee) {
+        if(employee != null){
+            System.out.println("Employee updated DONE");
+        }
        return employeeServiceInt.updateEmployee(employee);
     }
 
     @PatchMapping
-    public  Employee patchEmployee(Employee employee) {
-       return employeeServiceInt.updateEmployee(employee);
+    public  Employee patchEmployee(@RequestBody Employee employee) {
+       if(employee != null){
+           if (employee.getName() != null){
+               System.out.println("Employee Name updated DONE");
+           }
+           if (employee.getSalary() != null){
+               System.out.println("Employee Salary updated DONE");
+           }
+           if (employee.getAddress() != null){
+               System.out.println("Employee Address updated DONE");
+           }
+       }
+       return employeeServiceInt.patchUpdateEmployee(employee);
     }
 
     @DeleteMapping
-    public void deleteEmployeeById(Long id) {}
+    public void deleteEmployeeById(@RequestParam Long id) {
+       employeeServiceInt.deleteEmployee(id);
+    }
 
 }
