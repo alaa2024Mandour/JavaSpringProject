@@ -1,13 +1,14 @@
 package com.alx.employee.employee.controller;
 
 import com.alx.employee.employee.repo.Project;
-import com.alx.employee.employee.service.ProjectService;
+import com.alx.employee.employee.repo.Task;
 import com.alx.employee.employee.service.ProjectServiceInt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/projects")
 public class ProjectController{
 
     private final ProjectServiceInt projectServiceInt;
@@ -21,4 +22,29 @@ public class ProjectController{
         return  projectServiceInt.getEmployeeById(11L);
     }
 
+
+    @GetMapping
+    public List<Project> getAllProjects() {
+        return  projectServiceInt.findAllProjects();
+    }
+
+    @PostMapping
+    public Project saveProject(Project project) {
+        return projectServiceInt.saveProject(project);
+    }
+
+    @PutMapping
+    public Project updateProject(Project project) {
+        return projectServiceInt.updateProject(project);
+    }
+
+    @PatchMapping
+    public Project patchTask(Project project) {
+        return projectServiceInt.patchUpdateProject(project);
+    }
+
+    @DeleteMapping
+    public void deleteEmployeeById(Long id) {
+        projectServiceInt.deleteProject(id);
+    }
 }
