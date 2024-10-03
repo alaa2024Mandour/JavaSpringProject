@@ -1,15 +1,17 @@
 package com.alx.employee.employee.repo;
 
+import com.alx.employee.employee.entity.ProjectEntity;
+
 import java.util.List;
 
 public interface ProjectRepoInt {
-    public Project getProjectById(Long id);
+    public ProjectEntity getProjectById(Long id);
 
-    public List<Project> findAllProjects();
+    public List<ProjectEntity> findAllProjects();
 
-    public Project saveProject(Project project);
+    public ProjectEntity saveProject(ProjectEntity projectEntity);
 
     public void deleteProject(Long id);
 
-    public Project updateProject(Project project);
+    public ProjectEntity updateProject(ProjectEntity projectEntity);
 }

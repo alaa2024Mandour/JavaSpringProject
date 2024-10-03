@@ -1,5 +1,6 @@
 package com.alx.employee.employee.repo;
 
+import com.alx.employee.employee.entity.EmployeeEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -8,10 +9,10 @@ import java.util.List;
 @Repository
 public class EmployeeRepo implements EmployeeRepoInt
 {
-    public Employee findEmployeeById(Long id){
+    public EmployeeEntity findEmployeeById(Long id){
 
         Date date = new Date();
-        return new Employee(
+        return new EmployeeEntity(
                 id,
                 "A'laa Yasser",
                 "Alexandria",
@@ -21,23 +22,23 @@ public class EmployeeRepo implements EmployeeRepoInt
     }
 
     @Override
-    public List<Employee> findAllEmployees() {
+    public List<EmployeeEntity> findAllEmployees() {
         return List.of(
-                new Employee(
+                new EmployeeEntity(
                         1L,
                         "A'laa Yasser",
                         "Alexandria",
                         "5000.5",
                         "2024-1-9"
                 ),
-                new Employee(
+                new EmployeeEntity(
                         2L,
                         "Khaled Mohammed",
                         "Alexandria",
                         "5000.5",
                         "2024-1-9"
                 ),
-                new Employee(
+                new EmployeeEntity(
                         3L,
                         "Ali Ahmed",
                         "Alexandria",
@@ -48,8 +49,8 @@ public class EmployeeRepo implements EmployeeRepoInt
     }
 
     @Override
-    public Employee saveEmployee(Employee employee) {
-        return employee;
+    public EmployeeEntity saveEmployee(EmployeeEntity employeeEntity) {
+        return employeeEntity;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class EmployeeRepo implements EmployeeRepoInt
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
-        return employee;
+    public EmployeeEntity updateEmployee(EmployeeEntity employeeEntity) {
+        return employeeEntity;
     }
 }

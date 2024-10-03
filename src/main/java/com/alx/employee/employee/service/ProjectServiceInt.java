@@ -1,21 +1,21 @@
 package com.alx.employee.employee.service;
 
-import com.alx.employee.employee.repo.Project;
-import com.alx.employee.employee.repo.Task;
+import com.alx.employee.employee.entity.ProjectEntity;
+import com.alx.employee.employee.model.ProjectDTO;
 
 import java.util.List;
 
 public interface ProjectServiceInt {
-    public Project getEmployeeById(Long id);
+    public ProjectDTO getEmployeeById(Long id);
 
-    public List<Project> findAllProjects();
+    public List<ProjectDTO> findAllProjects();
 
-    public Project saveProject(Project project);
+    public ProjectDTO saveProject(ProjectDTO projectDTO);
 
     public void deleteProject(Long id);
 
-    public Project updateProject(Project project);
+    public ProjectDTO updateProject(ProjectDTO projectDTO);
 
-    public Project patchUpdateProject(Project project);
+    public ProjectDTO patchUpdateProject(ProjectDTO projectDTO);
 
 }

@@ -1,7 +1,7 @@
 package com.alx.employee.employee.controller;
 
-import com.alx.employee.employee.repo.Project;
-import com.alx.employee.employee.repo.Task;
+import com.alx.employee.employee.entity.ProjectEntity;
+import com.alx.employee.employee.model.ProjectDTO;
 import com.alx.employee.employee.service.ProjectServiceInt;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,33 +18,33 @@ public class ProjectController{
     }
 
     @GetMapping("/getProject")
-    public Project getProjectById() {
+    public ProjectDTO getProjectById() {
         return  projectServiceInt.getEmployeeById(11L);
     }
 
 
     @GetMapping
-    public List<Project> getAllProjects() {
+    public List<ProjectDTO> getAllProjects() {
         return  projectServiceInt.findAllProjects();
     }
 
     @PostMapping
-    public Project saveProject(Project project) {
-        return projectServiceInt.saveProject(project);
+    public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO) {
+        return projectServiceInt.saveProject(projectDTO);
     }
 
     @PutMapping
-    public Project updateProject(Project project) {
-        return projectServiceInt.updateProject(project);
+    public ProjectDTO updateProject(@RequestBody ProjectDTO projectDTO) {
+        return projectServiceInt.updateProject(projectDTO);
     }
 
     @PatchMapping
-    public Project patchTask(Project project) {
-        return projectServiceInt.patchUpdateProject(project);
+    public ProjectDTO patchTask(@RequestBody ProjectDTO projectDTO) {
+        return projectServiceInt.patchUpdateProject(projectDTO);
     }
 
     @DeleteMapping
-    public void deleteEmployeeById(Long id) {
+    public void deleteEmployeeById(@RequestParam Long id) {
         projectServiceInt.deleteProject(id);
     }
 }
