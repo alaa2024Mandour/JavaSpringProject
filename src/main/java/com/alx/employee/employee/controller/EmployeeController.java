@@ -1,5 +1,5 @@
 package com.alx.employee.employee.controller;
-import com.alx.employee.employee.repo.Employee;
+import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.service.EmployeeServiceInt;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,42 +15,31 @@ public class EmployeeController {
    }
 
     @GetMapping("/getEmployee")
-    public Employee getEmployeeById() {
+    public EmployeeDTO getEmployeeById() {
         return  employeeServiceInt.findEmployeeById(1L);
     }
 
     @GetMapping
-    public List<Employee> findAllEmployee (){
+    public List<EmployeeDTO> findAllEmployee (){
        return employeeServiceInt.findAllEmployees();
     }
 
     @PostMapping
-    public Employee saveEmployee(@RequestBody Employee employee) {
-       return employeeServiceInt.saveEmployee(employee);
+    public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
+       return employeeServiceInt.saveEmployee(employeeDTO);
     }
 
     @PutMapping
-    public Employee updateEmployee(@RequestBody Employee employee) {
-        if(employee != null){
+    public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        if(employeeDTO != null){
             System.out.println("Employee updated DONE");
         }
-       return employeeServiceInt.updateEmployee(employee);
+       return employeeServiceInt.updateEmployee(employeeDTO);
     }
 
     @PatchMapping
-    public  Employee patchEmployee(@RequestBody Employee employee) {
-       if(employee != null){
-           if (employee.getName() != null){
-               System.out.println("Employee Name updated DONE");
-           }
-           if (employee.getSalary() != null){
-               System.out.println("Employee Salary updated DONE");
-           }
-           if (employee.getAddress() != null){
-               System.out.println("Employee Address updated DONE");
-           }
-       }
-       return employeeServiceInt.patchUpdateEmployee(employee);
+    public EmployeeDTO patchEmployee(@RequestBody EmployeeDTO employeeDTO) {
+       return employeeServiceInt.patchUpdateEmployee(employeeDTO);
     }
 
     @DeleteMapping

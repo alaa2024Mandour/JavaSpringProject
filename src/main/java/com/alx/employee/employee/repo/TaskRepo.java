@@ -1,14 +1,14 @@
 package com.alx.employee.employee.repo;
 
+import com.alx.employee.employee.entity.TaskEntity;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class TaskRepo implements  TaskRepoInt{
-    public Task findTaskById(Long id) {
-        return new Task(
+    public TaskEntity findTaskById(Long id) {
+        return new TaskEntity(
                 id,
                 "Day1",
                 "SpringProject",
@@ -17,23 +17,23 @@ public class TaskRepo implements  TaskRepoInt{
         );
     }
 
-    public List<Task> findAllTasks() {
+    public List<TaskEntity> findAllTasks() {
         return  List.of(
-                new Task(
+                new TaskEntity(
                         1L,
                         "Day1",
                         "SpringProject",
                         "1-10-2024",
                         "7-10-2024"
                 ),
-                new Task(
+                new TaskEntity(
                         2L,
                         "Day2",
                         "SpringProject",
                         "1-10-2024",
                         "7-10-2024"
                 ),
-                new Task(
+                new TaskEntity(
                         3L,
                         "Day3",
                         "SpringProject",
@@ -44,17 +44,17 @@ public class TaskRepo implements  TaskRepoInt{
         );
     }
 
-    public Task saveTask (Task task) {
-        return null;
+    public TaskEntity saveTask (TaskEntity taskEntity) {
+        return taskEntity;
     }
 
     @Override
     public void deleteTask(Long id) {
-
+        System.out.println("Delete Task id: " + id);
     }
 
     @Override
-    public Task updateTask(Task task) {
-        return null;
+    public TaskEntity updateTask(TaskEntity taskEntity) {
+        return taskEntity;
     }
 }

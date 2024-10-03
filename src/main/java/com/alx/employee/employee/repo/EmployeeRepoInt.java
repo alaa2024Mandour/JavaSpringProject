@@ -1,15 +1,17 @@
 package com.alx.employee.employee.repo;
 
+import com.alx.employee.employee.entity.EmployeeEntity;
+
 import java.util.List;
 
 public interface EmployeeRepoInt {
-    public Employee findEmployeeById(Long id);
+    public EmployeeEntity findEmployeeById(Long id);
 
-    public List<Employee> findAllEmployees();
+    public List<EmployeeEntity> findAllEmployees();
 
-    public Employee saveEmployee(Employee employee);
+    public EmployeeEntity saveEmployee(EmployeeEntity employeeEntity);
 
     public void deleteEmployee(Long id);
 
-    public Employee updateEmployee(Employee employee);
+    public EmployeeEntity updateEmployee(EmployeeEntity employeeEntity);
 }

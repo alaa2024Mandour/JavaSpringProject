@@ -1,20 +1,20 @@
 package com.alx.employee.employee.service;
 
-import com.alx.employee.employee.repo.Employee;
-import com.alx.employee.employee.repo.Task;
+import com.alx.employee.employee.entity.TaskEntity;
+import com.alx.employee.employee.model.TaskDTO;
 
 import java.util.List;
 
 public interface TaskServiceInt {
-    public Task findTaskById(Long id);
+    public TaskDTO findTaskById(Long id);
 
-    public List<Task> findAllTasks();
+    public List<TaskDTO> findAllTasks();
 
-    public Task saveTask(Task task);
+    public TaskDTO saveTask(TaskDTO taskDTO);
 
     public void deleteTask(Long id);
 
-    public Task updateTask(Task task);
+    public TaskDTO updateTask(TaskDTO taskDTO);
 
-    public Task patchUpdateTask(Task task);
+    public TaskDTO patchUpdateTask(TaskDTO taskDTO);
 }

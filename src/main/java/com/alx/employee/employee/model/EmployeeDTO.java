@@ -1,17 +1,15 @@
-package com.alx.employee.employee.repo;
+package com.alx.employee.employee.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class EmployeeDTO {
     Long id;
     String name;
     String address;

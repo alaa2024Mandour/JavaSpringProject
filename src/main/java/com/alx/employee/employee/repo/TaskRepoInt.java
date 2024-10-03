@@ -1,15 +1,17 @@
 package com.alx.employee.employee.repo;
 
+import com.alx.employee.employee.entity.TaskEntity;
+
 import java.util.List;
 
 public interface TaskRepoInt {
-    public Task findTaskById(Long id);
+    public TaskEntity findTaskById(Long id);
 
-    public List<Task> findAllTasks();
+    public List<TaskEntity> findAllTasks();
 
-    public Task saveTask(Task task);
+    public TaskEntity saveTask(TaskEntity taskEntity);
 
     public void deleteTask(Long id);
 
-    public Task updateTask(Task task);
+    public TaskEntity updateTask(TaskEntity taskEntity);
 }

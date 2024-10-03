@@ -1,18 +1,19 @@
 package com.alx.employee.employee.service;
-import com.alx.employee.employee.repo.Employee;
+import com.alx.employee.employee.entity.EmployeeEntity;
+import com.alx.employee.employee.model.EmployeeDTO;
 
 import java.util.List;
 
 public interface EmployeeServiceInt {
-    public Employee findEmployeeById(Long id);
+    public EmployeeDTO findEmployeeById(Long id);
 
-    public Employee saveEmployee(Employee employee);
+    public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO);
 
-    public Employee updateEmployee(Employee employee);
+    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO);
 
-    public Employee patchUpdateEmployee(Employee employee);
+    public EmployeeDTO patchUpdateEmployee(EmployeeDTO employeeDTO);
 
     public void deleteEmployee(Long id);
 
-    public List<Employee> findAllEmployees();
+    public List<EmployeeDTO> findAllEmployees();
 }

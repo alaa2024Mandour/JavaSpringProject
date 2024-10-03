@@ -1,5 +1,5 @@
 package com.alx.employee.employee.controller;
-import com.alx.employee.employee.repo.Task;
+import com.alx.employee.employee.model.TaskDTO;
 import com.alx.employee.employee.service.TaskServiceInt;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,32 +15,32 @@ public class TaskController  {
     }
 
     @GetMapping("/getTask")
-    public Task getTaskById() {
+    public TaskDTO getTaskById() {
         return taskServiceInt.findTaskById(12L);
     }
 
     @GetMapping
-    public List<Task> findAllTasks (){
+    public List<TaskDTO> findAllTasks (){
         return taskServiceInt.findAllTasks();
     }
 
     @PostMapping
-    public Task saveTask(Task task) {
-        return taskServiceInt.saveTask(task);
+    public TaskDTO saveTask(@RequestBody TaskDTO taskDTO) {
+        return taskServiceInt.saveTask(taskDTO);
     }
 
     @PutMapping
-    public Task updateTask(Task task) {
-        return taskServiceInt.updateTask(task);
+    public TaskDTO updateTask(@RequestBody TaskDTO taskDTO) {
+        return taskServiceInt.updateTask(taskDTO);
     }
 
     @PatchMapping
-    public Task patchTask(Task task) {
-        return taskServiceInt.patchUpdateTask(task);
+    public TaskDTO patchTask(@RequestBody TaskDTO taskDTO) {
+        return taskServiceInt.patchUpdateTask(taskDTO);
     }
 
     @DeleteMapping
-    public void deleteEmployeeById(Long id) {
+    public void deleteEmployeeById(@RequestParam Long id) {
         taskServiceInt.deleteTask(id);
     }
 
