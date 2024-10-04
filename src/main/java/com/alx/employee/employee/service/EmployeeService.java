@@ -12,17 +12,27 @@ public class EmployeeService implements EmployeeServiceInt {
 
     private EmployeeEntity mapEmployeeToEntity(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setId(employeeDTO.getId());
-        employeeEntity.setName(employeeDTO.getName());
+        employeeEntity.setID(employeeDTO.getID());
+        employeeEntity.setFirstName(employeeDTO.getFirstName());
+        employeeEntity.setSecondName(employeeDTO.getSecondName());
         employeeEntity.setSalary(employeeDTO.getSalary());
+        employeeEntity.setDepartment(employeeDTO.getDepartment());
+        employeeEntity.setAddress(employeeDTO.getAddress());
+        employeeEntity.setPhone(employeeDTO.getPhone());
+        employeeEntity.setSID(employeeDTO.getSID());
         return employeeEntity;
     }
 
     private EmployeeDTO mapEmployeeToDTO(EmployeeEntity employeeEntity) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setId(employeeEntity.getId());
-        employeeDTO.setName(employeeEntity.getName());
+        employeeDTO.setID(employeeEntity.getID());
+        employeeDTO.setFirstName(employeeEntity.getFirstName());
+        employeeDTO.setSecondName(employeeEntity.getSecondName());
         employeeDTO.setSalary(employeeEntity.getSalary());
+        employeeDTO.setDepartment(employeeEntity.getDepartment());
+        employeeDTO.setAddress(employeeEntity.getAddress());
+        employeeDTO.setPhone(employeeEntity.getPhone());
+        employeeDTO.setSID(employeeEntity.getSID());
         return employeeDTO;
     }
 
@@ -34,13 +44,13 @@ public class EmployeeService implements EmployeeServiceInt {
 
     @Override
     public EmployeeDTO findEmployeeById(Long id) {
-        EmployeeEntity employeeEntity = employeeRepoInt.findEmployeeById(id);
+        EmployeeEntity employeeEntity = employeeRepoInt.findById(id).get();
         return mapEmployeeToDTO(employeeEntity);
     }
 
     @Override
     public List<EmployeeDTO> findAllEmployees() {
-        List<EmployeeEntity> employeeEntities = employeeRepoInt.findAllEmployees();
+        List<EmployeeEntity> employeeEntities = employeeRepoInt.findAll();
         return employeeEntities
                 .stream()
                 .map(employeeEntity -> mapEmployeeToDTO(employeeEntity))
@@ -50,21 +60,21 @@ public class EmployeeService implements EmployeeServiceInt {
     @Override
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO ) {
         EmployeeEntity mapedEmployee = mapEmployeeToEntity(employeeDTO);
-        EmployeeEntity savedEmployeeEntity = employeeRepoInt.saveEmployee(mapedEmployee);
+        EmployeeEntity savedEmployeeEntity = employeeRepoInt.save(mapedEmployee);
         return mapEmployeeToDTO(savedEmployeeEntity);
     }
 
     @Override
     public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity mapedEmployee = mapEmployeeToEntity(employeeDTO);
-        EmployeeEntity updatedEmployeeEntity = employeeRepoInt.updateEmployee(mapedEmployee);
+        EmployeeEntity updatedEmployeeEntity = employeeRepoInt.save(mapedEmployee);
         return mapEmployeeToDTO(updatedEmployeeEntity);
     }
 
     @Override
     public EmployeeDTO patchUpdateEmployee(EmployeeDTO employeeDTO) {
         if(employeeDTO != null){
-            if (employeeDTO.getName() != null){
+            if (employeeDTO.getFirstName() != null){
                 System.out.println("Employee Name updated DONE");
             }
             if (employeeDTO.getSalary() != null){
@@ -75,12 +85,12 @@ public class EmployeeService implements EmployeeServiceInt {
             }
         }
         EmployeeEntity mapedEmployee = mapEmployeeToEntity(employeeDTO);
-        EmployeeEntity patchUpdateEmployee = employeeRepoInt.updateEmployee(mapedEmployee);
+        EmployeeEntity patchUpdateEmployee = employeeRepoInt.save(mapedEmployee);
         return mapEmployeeToDTO(patchUpdateEmployee);
     }
 
     @Override
     public void deleteEmployee(Long id) {
-        employeeRepoInt.deleteEmployee(id);
+        employeeRepoInt.deleteById(id);
     }
 }

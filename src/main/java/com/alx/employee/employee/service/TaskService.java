@@ -20,6 +20,8 @@ public class TaskService implements TaskServiceInt {
         taskEntity.setId(taskDTO.getId());
         taskEntity.setName(taskDTO.getName());
         taskEntity.setDescription(taskDTO.getDescription());
+        taskEntity.setStart_date(taskDTO.getStart_date());
+        taskEntity.setEnd_date(taskDTO.getEnd_date());
         return taskEntity;
     }
 
@@ -29,17 +31,19 @@ public class TaskService implements TaskServiceInt {
         taskDTO.setId(taskEntity.getId());
         taskDTO.setName(taskEntity.getName());
         taskDTO.setDescription(taskEntity.getDescription());
+        taskDTO.setStart_date(taskEntity.getStart_date());
+        taskDTO.setEnd_date(taskEntity.getEnd_date());
         return taskDTO;
     }
 
     public TaskDTO findTaskById(Long id){
-        TaskEntity taskEntity = taskRepoInt.findTaskById(id);
+        TaskEntity taskEntity = taskRepoInt.findById(id).get();
         return  mapTaskToDTO(taskEntity);
     }
 
     @Override
     public List<TaskDTO> findAllTasks() {
-        List<TaskEntity> taskEntities = taskRepoInt.findAllTasks();
+        List<TaskEntity> taskEntities = taskRepoInt.findAll();
         return taskEntities
                 .stream()
                 .map(taskEntity -> mapTaskToDTO(taskEntity))
@@ -49,7 +53,7 @@ public class TaskService implements TaskServiceInt {
     @Override
     public TaskDTO saveTask(TaskDTO taskDTO) {
         TaskEntity mapedTaskEntity = mapTaskToEntity(taskDTO);
-        TaskEntity saveTaskEntity = taskRepoInt.saveTask(mapedTaskEntity);
+        TaskEntity saveTaskEntity = taskRepoInt.save(mapedTaskEntity);
         return mapTaskToDTO(saveTaskEntity);
     }
 
@@ -57,19 +61,19 @@ public class TaskService implements TaskServiceInt {
     @Override
     public TaskDTO updateTask(TaskDTO taskDTO) {
         TaskEntity mapedTaskEntity = mapTaskToEntity(taskDTO);
-        TaskEntity updateTaskEntity = taskRepoInt.updateTask(mapedTaskEntity);
+        TaskEntity updateTaskEntity = taskRepoInt.save(mapedTaskEntity);
         return mapTaskToDTO(updateTaskEntity);
     }
 
     @Override
     public TaskDTO patchUpdateTask(TaskDTO taskDTO) {
         TaskEntity mapedTaskEntity = mapTaskToEntity(taskDTO);
-        TaskEntity patchUdateTaskEntity = taskRepoInt.updateTask(mapedTaskEntity);
+        TaskEntity patchUdateTaskEntity = taskRepoInt.save(mapedTaskEntity);
         return mapTaskToDTO(patchUdateTaskEntity);
     }
 
     @Override
     public void deleteTask(Long id) {
-        taskRepoInt.deleteTask(id);
+        taskRepoInt.deleteById(id);
     }
 }

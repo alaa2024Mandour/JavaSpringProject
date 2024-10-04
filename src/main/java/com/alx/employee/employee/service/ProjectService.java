@@ -20,6 +20,8 @@ public class ProjectService implements ProjectServiceInt {
         projectEntity.setId(projectDTO.getId());
         projectEntity.setName(projectDTO.getName());
         projectEntity.setDescription(projectDTO.getDescription());
+        projectEntity.setEnd_date(projectDTO.getEnd_date());
+        projectEntity.setStart_date(projectDTO.getStart_date());
         return projectEntity;
     }
 
@@ -28,18 +30,20 @@ public class ProjectService implements ProjectServiceInt {
         projectDTO.setId(projectEntity.getId());
         projectDTO.setName(projectEntity.getName());
         projectDTO.setDescription(projectEntity.getDescription());
+        projectDTO.setStart_date(projectEntity.getStart_date());
+        projectDTO.setEnd_date(projectEntity.getStart_date());
         return projectDTO;
     }
 
 
     public ProjectDTO getEmployeeById(Long id) {
-        ProjectEntity projectEntity = projectRepoInt.getProjectById(id);
+        ProjectEntity projectEntity = projectRepoInt.findById(id).get();
        return mapProjectToDTO(projectEntity);
     }
 
     @Override
     public List<ProjectDTO> findAllProjects() {
-        List<ProjectEntity> projectEntitys = projectRepoInt.findAllProjects();
+        List<ProjectEntity> projectEntitys = projectRepoInt.findAll();
       return   projectEntitys
               .stream()
               .map(projectEntity -> mapProjectToDTO(projectEntity))
@@ -49,7 +53,7 @@ public class ProjectService implements ProjectServiceInt {
     @Override
     public ProjectDTO saveProject(ProjectDTO projectDTO) {
         ProjectEntity mapedProjectEntity = mapProjectToEntity(projectDTO);
-        ProjectEntity savedProjectEntity = projectRepoInt.saveProject(mapedProjectEntity);
+        ProjectEntity savedProjectEntity = projectRepoInt.save(mapedProjectEntity);
         return mapProjectToDTO(savedProjectEntity);
     }
 
@@ -57,7 +61,7 @@ public class ProjectService implements ProjectServiceInt {
     @Override
     public ProjectDTO updateProject(ProjectDTO projectDTO) {
         ProjectEntity mapedProjectEntity = mapProjectToEntity(projectDTO);
-        ProjectEntity updatedProjectEntity = projectRepoInt.saveProject(mapedProjectEntity);
+        ProjectEntity updatedProjectEntity = projectRepoInt.save(mapedProjectEntity);
         return mapProjectToDTO(updatedProjectEntity);
     }
 
@@ -75,12 +79,12 @@ public class ProjectService implements ProjectServiceInt {
             }
         }
         ProjectEntity mapedProjectEntity = mapProjectToEntity(projectDTO);
-        ProjectEntity patchedProjectEntity = projectRepoInt.updateProject(mapedProjectEntity);
+        ProjectEntity patchedProjectEntity = projectRepoInt.save(mapedProjectEntity);
         return mapProjectToDTO(patchedProjectEntity);
     }
 
     @Override
     public void deleteProject(Long id) {
-        projectRepoInt.deleteProject(id);
+        projectRepoInt.deleteById(id);
     }
 }
