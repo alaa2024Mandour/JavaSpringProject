@@ -3,7 +3,6 @@ import com.alx.employee.employee.entity.ProjectEntity;
 import com.alx.employee.employee.model.ProjectDTO;
 import com.alx.employee.employee.repo.*;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,8 @@ public class ProjectService implements ProjectServiceInt {
         projectEntity.setId(projectDTO.getId());
         projectEntity.setName(projectDTO.getName());
         projectEntity.setDescription(projectDTO.getDescription());
-        projectEntity.setEnd_date(projectDTO.getEnd_date());
-        projectEntity.setStart_date(projectDTO.getStart_date());
+        projectEntity.setEndDate(projectDTO.getEndDate());
+        projectEntity.setStartDate(projectDTO.getStartDate());
         return projectEntity;
     }
 
@@ -30,8 +29,8 @@ public class ProjectService implements ProjectServiceInt {
         projectDTO.setId(projectEntity.getId());
         projectDTO.setName(projectEntity.getName());
         projectDTO.setDescription(projectEntity.getDescription());
-        projectDTO.setStart_date(projectEntity.getStart_date());
-        projectDTO.setEnd_date(projectEntity.getStart_date());
+        projectDTO.setStartDate(projectEntity.getStartDate());
+        projectDTO.setEndDate(projectEntity.getEndDate());
         return projectDTO;
     }
 
@@ -81,6 +80,21 @@ public class ProjectService implements ProjectServiceInt {
         ProjectEntity mapedProjectEntity = mapProjectToEntity(projectDTO);
         ProjectEntity patchedProjectEntity = projectRepoInt.save(mapedProjectEntity);
         return mapProjectToDTO(patchedProjectEntity);
+    }
+
+    @Override
+    public ProjectDTO findProjectEntitiesByName(String name) {
+        ProjectEntity projectEntity = projectRepoInt.findProjectEntitiesByName(name);
+        return mapProjectToDTO(projectEntity);
+    }
+
+    @Override
+    public List<ProjectDTO> findProjectEntitiesByStartDate(String startDate) {
+        List<ProjectEntity> projectEntitys = projectRepoInt.findProjectEntitiesByStartDate(startDate);
+        return   projectEntitys
+                .stream()
+                .map(projectEntity -> mapProjectToDTO(projectEntity))
+                .collect(Collectors.toList());
     }
 
     @Override

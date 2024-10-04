@@ -1,6 +1,8 @@
 package com.alx.employee.employee.service;
 
+import com.alx.employee.employee.entity.EmployeeEntity;
 import com.alx.employee.employee.entity.ProjectEntity;
+import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.model.ProjectDTO;
 
 import java.util.List;
@@ -17,5 +19,9 @@ public interface ProjectServiceInt {
     public ProjectDTO updateProject(ProjectDTO projectDTO);
 
     public ProjectDTO patchUpdateProject(ProjectDTO projectDTO);
+
+    ProjectDTO findProjectEntitiesByName(String name);
+
+    List<ProjectDTO> findProjectEntitiesByStartDate(String startDate);
 
 }

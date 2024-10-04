@@ -1,7 +1,9 @@
 package com.alx.employee.employee.service;
 import com.alx.employee.employee.entity.EmployeeEntity;
+import com.alx.employee.employee.entity.ProjectEntity;
 import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.repo.EmployeeRepoInt;
+import com.alx.employee.employee.repo.ProjectRepoInt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public class EmployeeService implements EmployeeServiceInt {
 
     private EmployeeEntity mapEmployeeToEntity(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setID(employeeDTO.getID());
+        employeeEntity.setId(employeeDTO.getID());
         employeeEntity.setFirstName(employeeDTO.getFirstName());
         employeeEntity.setSecondName(employeeDTO.getSecondName());
         employeeEntity.setSalary(employeeDTO.getSalary());
@@ -25,7 +27,7 @@ public class EmployeeService implements EmployeeServiceInt {
 
     private EmployeeDTO mapEmployeeToDTO(EmployeeEntity employeeEntity) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setID(employeeEntity.getID());
+        employeeDTO.setID(employeeEntity.getId());
         employeeDTO.setFirstName(employeeEntity.getFirstName());
         employeeDTO.setSecondName(employeeEntity.getSecondName());
         employeeDTO.setSalary(employeeEntity.getSalary());
@@ -37,9 +39,11 @@ public class EmployeeService implements EmployeeServiceInt {
     }
 
     public EmployeeRepoInt employeeRepoInt;
+    public ProjectRepoInt projectRepoInt;
 
-    EmployeeService(EmployeeRepoInt employeeRepoInt) {
+    EmployeeService(EmployeeRepoInt employeeRepoInt , ProjectRepoInt projectRepoInt) {
         this.employeeRepoInt = employeeRepoInt;
+        this.projectRepoInt = projectRepoInt;
     }
 
     @Override
@@ -58,6 +62,22 @@ public class EmployeeService implements EmployeeServiceInt {
     }
 
     @Override
+    public EmployeeDTO findByFirstName(String firstName){
+        EmployeeEntity employeeEntity = employeeRepoInt.findEmployeeEntityByFirstName(firstName);
+        return mapEmployeeToDTO(employeeEntity);
+    }
+
+    @Override
+    public List<EmployeeDTO> findEmployeeEntitiesByAddress(String address) {
+        List<EmployeeEntity> employeeEntities = employeeRepoInt.findEmployeeEntitiesByAddress(address);
+        return employeeEntities
+                .stream()
+                .map(employee -> mapEmployeeToDTO(employee))
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO ) {
         EmployeeEntity mapedEmployee = mapEmployeeToEntity(employeeDTO);
         EmployeeEntity savedEmployeeEntity = employeeRepoInt.save(mapedEmployee);
@@ -72,25 +92,36 @@ public class EmployeeService implements EmployeeServiceInt {
     }
 
     @Override
-    public EmployeeDTO patchUpdateEmployee(EmployeeDTO employeeDTO) {
+    public EmployeeDTO patchUpdateEmployee(EmployeeDTO employeeDTO , Long employeeId) {
+        EmployeeEntity oldEmployeeEntity = employeeRepoInt.findById(employeeId).get();
         if(employeeDTO != null){
-            if (employeeDTO.getFirstName() != null){
-                System.out.println("Employee Name updated DONE");
-            }
-            if (employeeDTO.getSalary() != null){
-                System.out.println("Employee Salary updated DONE");
-            }
-            if (employeeDTO.getAddress() != null){
-                System.out.println("Employee Address updated DONE");
-            }
+                if(employeeDTO.getFirstName() != null){
+                    oldEmployeeEntity.setFirstName(employeeDTO.getFirstName());
+                }
+                if((employeeDTO.getSalary() != null) && (employeeDTO.getSalary() > 0)){
+                    oldEmployeeEntity.setSalary(employeeDTO.getSalary());
+                }
+                if(employeeDTO.getAddress() != null){
+                    oldEmployeeEntity.setAddress(employeeDTO.getAddress());
+                }
+
         }
-        EmployeeEntity mapedEmployee = mapEmployeeToEntity(employeeDTO);
-        EmployeeEntity patchUpdateEmployee = employeeRepoInt.save(mapedEmployee);
+        EmployeeEntity patchUpdateEmployee = employeeRepoInt.save(oldEmployeeEntity);
         return mapEmployeeToDTO(patchUpdateEmployee);
     }
 
     @Override
     public void deleteEmployee(Long id) {
         employeeRepoInt.deleteById(id);
+    }
+
+
+    @Override
+    public EmployeeDTO assignProjectToEmployee(EmployeeDTO employeeDTO, Long projectId) {
+        ProjectEntity projectEntity = projectRepoInt.findById(projectId).get();
+        EmployeeEntity employeeEntity = mapEmployeeToEntity(employeeDTO);
+        employeeEntity.setProjectEntity(projectEntity);
+        EmployeeEntity updatedEmployeeEntity = employeeRepoInt.save(employeeEntity);
+        return mapEmployeeToDTO(updatedEmployeeEntity);
     }
 }
