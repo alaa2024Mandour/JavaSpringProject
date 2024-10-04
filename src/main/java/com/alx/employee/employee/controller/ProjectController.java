@@ -1,6 +1,4 @@
 package com.alx.employee.employee.controller;
-
-import com.alx.employee.employee.entity.ProjectEntity;
 import com.alx.employee.employee.model.ProjectDTO;
 import com.alx.employee.employee.service.ProjectServiceInt;
 import org.springframework.web.bind.annotation.*;
@@ -47,4 +45,15 @@ public class ProjectController{
     public void deleteEmployeeById(@RequestParam Long id) {
         projectServiceInt.deleteProject(id);
     }
+
+    @GetMapping("/projectByName")
+    public  ProjectDTO findProjectEntitiesByName(@RequestParam String name) {
+        return projectServiceInt.findProjectEntitiesByName(name);
+    }
+
+    @GetMapping("/projectByStartDate")
+    public  List<ProjectDTO> findProjectEntitiesByStartDate(@RequestParam String startDate) {
+        return  projectServiceInt.findProjectEntitiesByStartDate(startDate);
+    }
+
 }

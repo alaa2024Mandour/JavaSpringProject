@@ -15,9 +15,10 @@ public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(name = "name")
     String name;
     String description;
-    String start_date;
-    String end_date;
-
+    @Column(name = "startDate")
+    String startDate;
+    String endDate;
 }
