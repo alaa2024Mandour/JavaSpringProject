@@ -17,6 +17,8 @@ public class TaskEntity {
     Long id;
     String name;
     String description;
-    String start_date;
-    String end_date;
+    @Column(name = "startDate")
+    String startDate;
+    @Column(name = "endDate")
+    String endDate;
 }

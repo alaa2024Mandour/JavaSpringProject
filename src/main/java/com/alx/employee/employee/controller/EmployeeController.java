@@ -2,6 +2,8 @@ package com.alx.employee.employee.controller;
 import com.alx.employee.employee.entity.CustomResponse;
 import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.service.EmployeeServiceInt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,15 +18,17 @@ public class EmployeeController {
    }
 
     @GetMapping("/getEmployee")
-    public CustomResponse<EmployeeDTO> getEmployeeById() {
+    public ResponseEntity<?> getEmployeeById(){
        EmployeeDTO employeeDTO = employeeServiceInt.findEmployeeById(1L);
-        return  new CustomResponse<>("01","Success",employeeDTO);
+        CustomResponse<EmployeeDTO> customResponse =new CustomResponse("01","Success",employeeDTO);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }
 
     @GetMapping
-    public CustomResponse<List<EmployeeDTO>> findAllEmployee (){
+    public ResponseEntity<?> findAllEmployee (){
         List<EmployeeDTO> employeeDTO = employeeServiceInt.findAllEmployees();
-        return  new CustomResponse<>("01","Success",employeeDTO);
+        CustomResponse<List<EmployeeDTO>> customResponse = new CustomResponse<>("01","Success",employeeDTO);
+        return  new  ResponseEntity<>(customResponse, HttpStatus.OK);
     }
 
     @PostMapping
@@ -43,9 +47,10 @@ public class EmployeeController {
     }
 
     @PatchMapping
-    public CustomResponse<EmployeeDTO> patchEmployee(@RequestBody EmployeeDTO _employeeDTO , @RequestParam Long employeeId) {
+    public ResponseEntity<?> patchEmployee(@RequestBody EmployeeDTO _employeeDTO , @RequestParam Long employeeId) {
         EmployeeDTO employeeDTO = employeeServiceInt.patchUpdateEmployee(_employeeDTO, employeeId);
-        return new CustomResponse<>("01","Success",employeeDTO);
+        CustomResponse<EmployeeDTO> customResponse = new CustomResponse<>("01","Success",employeeDTO);
+        return new ResponseEntity<>(customResponse, HttpStatus.ALREADY_REPORTED);
     }
 
     @DeleteMapping

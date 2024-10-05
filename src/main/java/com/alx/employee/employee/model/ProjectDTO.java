@@ -1,6 +1,7 @@
 package com.alx.employee.employee.model;
 
 import com.alx.employee.employee.entity.ProjectEntity;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,4 @@ public class ProjectDTO {
     String description;
     String startDate;
     String endDate;
-
 }

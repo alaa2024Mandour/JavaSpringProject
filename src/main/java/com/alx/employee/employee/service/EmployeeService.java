@@ -1,6 +1,7 @@
 package com.alx.employee.employee.service;
 import com.alx.employee.employee.entity.EmployeeEntity;
 import com.alx.employee.employee.entity.ProjectEntity;
+import com.alx.employee.employee.exceptions.CustomException;
 import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.repo.EmployeeRepoInt;
 import com.alx.employee.employee.repo.ProjectRepoInt;
@@ -48,7 +49,10 @@ public class EmployeeService implements EmployeeServiceInt {
 
     @Override
     public EmployeeDTO findEmployeeById(Long id) {
-        EmployeeEntity employeeEntity = employeeRepoInt.findById(id).get();
+        EmployeeEntity employeeEntity = employeeRepoInt.findById(id)
+                .orElseThrow(
+                        () -> new CustomException("not found employee by this id" + id)
+                );
         return mapEmployeeToDTO(employeeEntity);
     }
 

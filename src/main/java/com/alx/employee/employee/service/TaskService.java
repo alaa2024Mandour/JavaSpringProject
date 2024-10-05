@@ -20,8 +20,8 @@ public class TaskService implements TaskServiceInt {
         taskEntity.setId(taskDTO.getId());
         taskEntity.setName(taskDTO.getName());
         taskEntity.setDescription(taskDTO.getDescription());
-        taskEntity.setStart_date(taskDTO.getStart_date());
-        taskEntity.setEnd_date(taskDTO.getEnd_date());
+        taskEntity.setStartDate(taskDTO.getStartDate());
+        taskEntity.setEndDate(taskDTO.getEndDate());
         return taskEntity;
     }
 
@@ -31,8 +31,8 @@ public class TaskService implements TaskServiceInt {
         taskDTO.setId(taskEntity.getId());
         taskDTO.setName(taskEntity.getName());
         taskDTO.setDescription(taskEntity.getDescription());
-        taskDTO.setStart_date(taskEntity.getStart_date());
-        taskDTO.setEnd_date(taskEntity.getEnd_date());
+        taskDTO.setStartDate(taskEntity.getStartDate());
+        taskDTO.setEndDate(taskEntity.getEndDate());
         return taskDTO;
     }
 
