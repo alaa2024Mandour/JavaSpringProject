@@ -4,37 +4,51 @@ import com.alx.employee.employee.model.EmployeeDTO;
 import com.alx.employee.employee.service.EmployeeServiceInt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/employee")
-public class EmployeeController {
+@Controller
+@RequestMapping("/employee/view")
+public class EmployeeViewController {
    private final EmployeeServiceInt employeeServiceInt;
 
-   EmployeeController(EmployeeServiceInt employeeServiceInt) {
+   EmployeeViewController(EmployeeServiceInt employeeServiceInt) {
        this.employeeServiceInt = employeeServiceInt;
    }
 
     @GetMapping("/getEmployee")
-    public ResponseEntity<?> getEmployeeById(){
-       EmployeeDTO employeeDTO = employeeServiceInt.findEmployeeById(1L);
-        CustomResponse<EmployeeDTO> customResponse =new CustomResponse("01","Success",employeeDTO);
-        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    public String getEmployeeById(Long id, Model model){
+       EmployeeDTO employeeDTO = employeeServiceInt.findEmployeeById(id);
+        CustomResponse<EmployeeDTO> customResponse =new CustomResponse(
+                "01",
+                "Success",
+                employeeDTO);
+        model.addAttribute("employee", customResponse.getData());
+        return "emp";
     }
 
     @GetMapping
-    public ResponseEntity<?> findAllEmployee (){
+    public String findAllEmployee (Model model){
         List<EmployeeDTO> employeeDTO = employeeServiceInt.findAllEmployees();
         CustomResponse<List<EmployeeDTO>> customResponse = new CustomResponse<>("01","Success",employeeDTO);
-        return  new  ResponseEntity<>(customResponse, HttpStatus.OK);
+        model.addAttribute("employee", customResponse.getData());
+        return  "allEmp";
+    }
+
+    @GetMapping("/saveEmployee")
+    public String saveEmployee(Model model) {
+        model.addAttribute("employee", new EmployeeDTO());
+        return "AddEmp";
     }
 
     @PostMapping
-    public CustomResponse<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO _employeeDTO) {
+    public String saveEmployee(EmployeeDTO _employeeDTO , Model model) {
         EmployeeDTO employeeDTO = employeeServiceInt.saveEmployee(_employeeDTO);
-       return new CustomResponse<>("01","Success",employeeDTO);
+        model.addAttribute("employee", new EmployeeDTO());
+        return "AddEmp";
     }
 
     @PutMapping
